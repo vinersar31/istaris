@@ -1,7 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import styles from './Team.module.css';
+
+const basePath = process.env.NODE_ENV === 'production' ? '/istaris' : '';
 
 const teamMembers = [
     {
@@ -41,11 +42,9 @@ export default function Team() {
                             style={{ animationDelay: `${index * 200}ms` }}
                         >
                             <div className={styles.imageWrapper}>
-                                <Image
-                                    src={member.image}
+                                <img
+                                    src={`${basePath}${member.image}`}
                                     alt={`${member.name} - ${member.role}`}
-                                    width={400}
-                                    height={400}
                                     className={styles.image}
                                 />
                                 <div className={styles.badge}>
