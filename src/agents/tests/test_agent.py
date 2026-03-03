@@ -13,7 +13,7 @@ from src.agents.scrum_master.agent import (
 def test_agent_initialization():
     """Test that the agent is properly configured."""
     assert agent.name == "ScrumMasterAgent"
-    assert len(agent.tools) == 3
+    assert len(agent.tools) == 6
 
     # Assert tools are present in the list
     tool_names = [tool.__name__ for tool in agent.tools]
@@ -103,3 +103,48 @@ def test_record_standup_update(tmp_path, monkeypatch):
         record = json.loads(lines[0])
         assert record["user"] == "Bob"
         assert record["update"] == "Completed sprint planning."
+
+from src.agents.scrum_master.agent import (
+    get_agile_boards,
+    get_sprints,
+    get_sprint_metrics
+)
+
+def test_get_agile_boards(mock_jira_env, mock_jira_client):
+    mock_board = MagicMock()
+    mock_board.id = 123
+    mock_board.name = "Test Board"
+    mock_jira_client.boards.return_value = [mock_board]
+
+    result = get_agile_boards("Test")
+    assert "Board ID: 123" in result
+    assert "Test Board" in result
+
+def test_get_sprints(mock_jira_env, mock_jira_client):
+    mock_sprint = MagicMock()
+    mock_sprint.id = 456
+    mock_sprint.name = "Sprint 1"
+    mock_sprint.state = "active"
+    mock_jira_client.sprints.return_value = [mock_sprint]
+
+    result = get_sprints(123)
+    assert "Sprint ID: 456" in result
+    assert "Sprint 1" in result
+    assert "active" in result
+
+def test_get_sprint_metrics(mock_jira_env, mock_jira_client):
+    # Mock two issues, one done and one in progress
+    issue1 = MagicMock()
+    issue1.fields.status.statusCategory.name = "Done"
+    issue2 = MagicMock()
+    issue2.fields.status.statusCategory.name = "In Progress"
+
+    mock_jira_client.search_issues.return_value = [issue1, issue2]
+
+    result = get_sprint_metrics(123, 456)
+
+    assert "Total Issues: 2" in result
+    assert "Done: 1" in result
+    assert "In Progress: 1" in result
+    assert "50.0%" in result
+    assert "chart=sprintRetrospective&sprint=456" in result
