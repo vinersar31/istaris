@@ -2,9 +2,11 @@ name: Python Agent Tests
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches:
+      - '**'
   pull_request:
-    branches: [ "main", "master" ]
+    branches:
+      - '**'
 
 jobs:
   test:
