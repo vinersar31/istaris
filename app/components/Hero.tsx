@@ -1,4 +1,5 @@
 
+import Link from 'next/link';
 import styles from './Hero.module.css';
 
 export default function Hero() {
@@ -16,12 +17,12 @@ export default function Hero() {
                     </p>
 
                     <div className={`${styles.cta} animate-fade-in-up`}>
-                        <a href="#contact" className="btn btn-primary">
+                        <Link href="#contact" className="btn btn-primary">
                             Get Started
-                        </a>
-                        <a href="#features" className="btn btn-secondary">
+                        </Link>
+                        <Link href="#features" className="btn btn-secondary">
                             Learn More
-                        </a>
+                        </Link>
                     </div>
 
                     <div className={styles.stats}>
