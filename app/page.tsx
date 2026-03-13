@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Team from './components/Team';
@@ -25,14 +26,14 @@ export default function Home() {
             <div className={styles.footerLinks}>
               <div className={styles.footerSection}>
                 <h4>Product</h4>
-                <a href="#features">Features</a>
-                <a href="#contact">Get Started</a>
+                <Link href="#features">Features</Link>
+                <Link href="#contact">Get Started</Link>
               </div>
 
               <div className={styles.footerSection}>
                 <h4>Company</h4>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <Link href="#about">About</Link>
+                <Link href="#contact">Contact</Link>
               </div>
             </div>
           </div>
