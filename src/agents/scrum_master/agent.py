@@ -103,6 +103,10 @@ def get_sprint_metrics(board_id: int, sprint_id: int) -> str:
         return "Error: Jira client not configured."
 
     try:
+        # Securely cast inputs to int to prevent JQL injection
+        board_id = int(board_id)
+        sprint_id = int(sprint_id)
+
         jql = f"sprint = {sprint_id}"
         issues = jira.search_issues(jql, maxResults=100)
 
