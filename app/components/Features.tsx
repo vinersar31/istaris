@@ -1,4 +1,3 @@
-'use client';
 
 import styles from './Features.module.css';
 

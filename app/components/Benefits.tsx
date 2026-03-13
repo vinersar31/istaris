@@ -1,4 +1,3 @@
-'use client';
 
 import styles from './Benefits.module.css';
 
