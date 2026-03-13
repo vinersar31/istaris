@@ -120,6 +120,13 @@ def test_get_agile_boards(mock_jira_env, mock_jira_client):
     assert "Board ID: 123" in result
     assert "Test Board" in result
 
+def test_get_agile_boards_exception(mock_jira_env, mock_jira_client):
+    """Test get_agile_boards when an exception occurs."""
+    mock_jira_client.boards.side_effect = Exception("API error")
+
+    result = get_agile_boards("keyword")
+    assert "Failed to retrieve boards: API error" in result
+
 def test_get_sprints(mock_jira_env, mock_jira_client):
     mock_sprint = MagicMock()
     mock_sprint.id = 456
@@ -131,6 +138,13 @@ def test_get_sprints(mock_jira_env, mock_jira_client):
     assert "Sprint ID: 456" in result
     assert "Sprint 1" in result
     assert "active" in result
+
+def test_get_sprints_exception(mock_jira_env, mock_jira_client):
+    """Test get_sprints when an exception occurs."""
+    mock_jira_client.sprints.side_effect = Exception("Connection error")
+
+    result = get_sprints(123)
+    assert "Failed to retrieve sprints: Connection error" in result
 
 def test_get_sprint_metrics(mock_jira_env, mock_jira_client):
     # Mock two issues, one done and one in progress
@@ -148,3 +162,10 @@ def test_get_sprint_metrics(mock_jira_env, mock_jira_client):
     assert "In Progress: 1" in result
     assert "50.0%" in result
     assert "chart=sprintRetrospective&sprint=456" in result
+
+def test_get_sprint_metrics_exception(mock_jira_env, mock_jira_client):
+    """Test get_sprint_metrics when an exception occurs."""
+    mock_jira_client.search_issues.side_effect = Exception("Query error")
+
+    result = get_sprint_metrics(123, 456)
+    assert "Failed to retrieve sprint metrics: Query error" in result
