@@ -1,5 +1,23 @@
-
 import styles from './Benefits.module.css';
+
+const benefitsData = [
+    {
+        title: "Instant Deployment",
+        text: "Deploy fully trained AI employees in minutes, not months"
+    },
+    {
+        title: "Zero Management Overhead",
+        text: "No HR, no training, no performance reviews. Just results."
+    },
+    {
+        title: "Continuous Improvement",
+        text: "AI that learns and improves with every interaction"
+    },
+    {
+        title: "Enterprise Security",
+        text: "Bank-level encryption and compliance built-in"
+    }
+];
 
 export default function Benefits() {
     return (
@@ -11,50 +29,20 @@ export default function Benefits() {
                             Why Choose <span className="gradient-text">Istaris</span>?
                         </h2>
                         <p className={styles.description}>
-                            Traditional hiring is broken. It's slow, expensive, and doesn't scale.
+                            Traditional hiring is broken. It&apos;s slow, expensive, and doesn&apos;t scale.
                             Our AI-powered digital employees revolutionize how work gets done.
                         </p>
 
                         <div className={styles.benefits}>
-                            <div className={styles.benefit}>
-                                <div className={styles.benefitIcon}>✓</div>
-                                <div>
-                                    <h3 className={styles.benefitTitle}>Instant Deployment</h3>
-                                    <p className={styles.benefitText}>
-                                        Deploy fully trained AI employees in minutes, not months
-                                    </p>
+                            {benefitsData.map((benefit, index) => (
+                                <div key={index} className={styles.benefit}>
+                                    <div className={styles.benefitIcon}>✓</div>
+                                    <div>
+                                        <h3 className={styles.benefitTitle}>{benefit.title}</h3>
+                                        <p className={styles.benefitText}>{benefit.text}</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className={styles.benefit}>
-                                <div className={styles.benefitIcon}>✓</div>
-                                <div>
-                                    <h3 className={styles.benefitTitle}>Zero Management Overhead</h3>
-                                    <p className={styles.benefitText}>
-                                        No HR, no training, no performance reviews. Just results.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className={styles.benefit}>
-                                <div className={styles.benefitIcon}>✓</div>
-                                <div>
-                                    <h3 className={styles.benefitTitle}>Continuous Improvement</h3>
-                                    <p className={styles.benefitText}>
-                                        AI that learns and improves with every interaction
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className={styles.benefit}>
-                                <div className={styles.benefitIcon}>✓</div>
-                                <div>
-                                    <h3 className={styles.benefitTitle}>Enterprise Security</h3>
-                                    <p className={styles.benefitText}>
-                                        Bank-level encryption and compliance built-in
-                                    </p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
